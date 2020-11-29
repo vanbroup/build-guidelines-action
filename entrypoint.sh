@@ -6,6 +6,7 @@ INPUT_DRAFT="${INPUT_DRAFT:-false}"
 INPUT_PDF="${INPUT_PDF:-true}"
 INPUT_DOCX="${INPUT_DOCX:-true}"
 INPUT_LINT="${INPUT_LINT:-false}"
+TEXINPUTS="${TEXINPUTS:-}"
 
 if [ "$#" -ne 1 ]; then
   echo "No markdown file specified"
@@ -25,7 +26,7 @@ BASE_FILE="${1%.*}"
 PANDOC_ARGS=( -f markdown --table-of-contents -s )
 
 if [ "$INPUT_DRAFT" = "true" ]; then
-  echo "Draft\n"
+  echo "::debug::Adding draft watermark"
   PANDOC_ARGS+=( -M draft )
 fi
 

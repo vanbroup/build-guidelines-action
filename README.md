@@ -58,8 +58,10 @@ This is currently only supported for PDF outputs.
 
 ## Example usage
 
+```
 uses: cabforum/build-guidelines-action@v1
 with:
   markdown-file: docs/BR.md
   draft: true
   lint: true
+```
