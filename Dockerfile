@@ -3,6 +3,9 @@ FROM pandoc/latex:2.9.2.1
 # Install the necessary LaTeX packages
 RUN tlmgr install \
   crimsonpro \
+  draftwatermark \
+  fancyhdr \
+  parskip \
   sourcecodepro \
   sourcesanspro \
   sourceserifpro \

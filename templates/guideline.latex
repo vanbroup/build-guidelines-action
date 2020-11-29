@@ -8,7 +8,6 @@
 \usepackage[margin=1in]{geometry}
 
 % Configure fonts
-\usepackage{lmodern}  % TODO: Replace me
 \usepackage{unicode-math}
 \defaultfontfeatures{Scale=MatchLowercase}
 \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
