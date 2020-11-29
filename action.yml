@@ -1,0 +1,27 @@
+name: 'Build CA/Browser Forum Guideline'
+description: 'Convert a Pandoc-flavored Markdown file to PDF and DOCX using the CA/B Forum Guideline template'
+inputs:
+  markdown-file:
+    description: 'Name of the file to convert'
+    required: true
+  pdf:
+    description: 'Generate a PDF file (true/false)'
+    required: false
+    default: 'true'
+  docx:
+    description: 'Generate a DOCX (true/false)'
+    required: false
+    default: 'true'
+  lint:
+    description: 'Check for broken self-reference links (true/false)'
+    required: false
+    default: 'false'
+  draft:
+    description: 'Include a draft watermark (PDF-only for now) (true/false)'
+    required: false
+    default: 'false'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.markdown-file }}
