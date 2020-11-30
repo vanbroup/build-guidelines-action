@@ -39,7 +39,8 @@ if [ "$INPUT_PDF" = "true" ]; then
   PANDOC_PDF_ARGS+=( -o "${BASE_FILE}.pdf" "${1}" )
 
   set -x
-  TEXINPUTS="$TEXINPUTS":/cabforum/ pandoc "${PANDOC_PDF_ARGS[@]}"
+  pandoc "${PANDOC_ARGS[@]}" -t latex --template=/cabforum/templates/guideline.latex -o "${BASE_FILE}.tex" "${1}"
+  TEXINPUTS="${TEXINPUTS}:/cabforum/" pandoc "${PANDOC_PDF_ARGS[@]}"
   set +x
   echo "::endgroup::"
 fi

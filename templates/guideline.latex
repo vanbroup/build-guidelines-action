@@ -9,11 +9,13 @@
 
 % Configure fonts
 \usepackage{unicode-math}
+\usepackage{xeCJK}
 \defaultfontfeatures{Scale=MatchLowercase}
 \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \usepackage[default]{sourceserifpro}
 \usepackage[ttdefault]{sourcecodepro}
 \usepackage{sourcesanspro}
+\setCJKmainfont{Noto Serif CJK JP}
 
 % For adding the logo to the title page
 \usepackage{graphicx}
@@ -69,6 +71,27 @@
 
 % Remove section numbering, since we number inline.
 \setcounter{secnumdepth}{-\maxdimen}
+
+% Fixup lists for the EV Guidelines, since LaTeX naturally only supports
+% six depths
+\usepackage[shortlabels]{enumitem}
+\setlistdepth{6}
+\setlist[itemize,1]{label=$$\bullet$$}
+\setlist[itemize,2]{label=$$\bullet$$}
+\setlist[itemize,3]{label=$$\bullet$$}
+\setlist[itemize,4]{label=$$\bullet$$}
+\setlist[itemize,5]{label=$$\bullet$$}
+\setlist[itemize,6]{label=$$\bullet$$}
+\renewlist{itemize}{itemize}{6}
+
+\setlist[enumerate,1]{label=$$\arabic*.$$}
+\setlist[enumerate,1]{label=$$\arabic*.$$}
+\setlist[enumerate,2]{label=$$\alph*.$$}
+\setlist[enumerate,3]{label=$$\roman*.$$}
+\setlist[enumerate,4]{label=$$\arabic*.$$}
+\setlist[enumerate,5]{label=$$\alpha*$$}
+\setlist[enumerate,6]{label=$$\roman*.$$}
+\renewlist{enumerate}{enumerate}{6}
 
 % Redefines (sub)paragraphs to behave more like sections
 \ifx\paragraph\undefined\else

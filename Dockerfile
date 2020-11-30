@@ -4,6 +4,7 @@ FROM pandoc/latex:2.9.2.1
 RUN tlmgr install \
   crimsonpro \
   draftwatermark \
+  enumitem \
   everypage \
   fancyhdr \
   parskip \
@@ -11,10 +12,19 @@ RUN tlmgr install \
   sourcesanspro \
   sourceserifpro \
   titlesec \
-  tocloft
+  tocloft \
+  xecjk
 
 # Install bash
 RUN apk add bash
+
+RUN mkdir -p /tmp/fonts && \
+    mkdir ~/.fonts/ && \
+    wget -O /tmp/fonts/noto.zip https://noto-website-2.storage.googleapis.com/pkgs/NotoSerifCJKjp-hinted.zip && \
+    unzip /tmp/fonts/noto.zip -d /tmp/fonts && \
+    cp /tmp/fonts/*.otf ~/.fonts && \
+    fc-cache -f -v && \
+    rm -rf /tmp/fonts
 
 RUN mkdir -p /cabforum
 RUN mkdir -p /cabforum/templates
