@@ -4,6 +4,7 @@ FROM pandoc/latex:2.9.2.1
 RUN tlmgr install \
   crimsonpro \
   draftwatermark \
+  everypage \
   fancyhdr \
   parskip \
   sourcecodepro \

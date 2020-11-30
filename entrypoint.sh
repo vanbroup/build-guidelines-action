@@ -26,7 +26,7 @@ BASE_FILE="${1%.*}"
 PANDOC_ARGS=( -f markdown --table-of-contents -s )
 
 if [ "$INPUT_DRAFT" = "true" ]; then
-  echo "::debug::Adding draft watermark"
+  echo "Draft detected. Adding draft watermark"
   PANDOC_ARGS+=( -M draft )
 fi
 
@@ -38,8 +38,9 @@ if [ "$INPUT_PDF" = "true" ]; then
   PANDOC_PDF_ARGS+=( --template=/cabforum/templates/guideline.latex )
   PANDOC_PDF_ARGS+=( -o "${BASE_FILE}.pdf" "${1}" )
 
-  echo "::debug::${PANDOC_PDF_ARGS[@]}"
+  set -x
   TEXINPUTS="$TEXINPUTS":/cabforum/ pandoc "${PANDOC_PDF_ARGS[@]}"
+  set +x
   echo "::endgroup::"
 fi
 
@@ -50,8 +51,9 @@ if [ "$INPUT_DOCX" = "true" ]; then
   PANDOC_DOCX_ARGS+=( --reference-doc=/cabforum/templates/guideline.docx )
   PANDOC_DOCX_ARGS+=( -o "${BASE_FILE}.docx" "${1}" )
 
-  echo "::debug::${PANDOC_DOCX_ARGS[@]}"
+  set -x
   pandoc "${PANDOC_DOCX_ARGS[@]}"
+  set +x
   echo "::endgroup::"
 fi
 
@@ -62,7 +64,8 @@ if [ "$INPUT_LINT" = "true" ]; then
   PANDOC_LINT_ARGS+=( --lua-filter=/cabforum/filters/broken-links.lua )
   PANDOC_LINT_ARGS+=( -o /dev/null "${1}" )
 
-  echo "::debug::${PANDOC_LINT_ARGS[@]}"
+  set -x
   pandoc "${PANDOC_LINT_ARGS[@]}"
+  set +x
   echo "::endgroup::"
 fi
