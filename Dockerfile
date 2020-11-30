@@ -19,10 +19,11 @@ RUN tlmgr install \
 RUN apk add bash
 
 RUN mkdir -p /tmp/fonts && \
-    mkdir ~/.fonts/ && \
+    mkdir -p /usr/share/fonts && \
     wget -O /tmp/fonts/noto.zip https://noto-website-2.storage.googleapis.com/pkgs/NotoSerifCJKjp-hinted.zip && \
     unzip /tmp/fonts/noto.zip -d /tmp/fonts && \
-    cp /tmp/fonts/*.otf ~/.fonts && \
+    chmod 0644 /tmp/fonts/*.otf && \
+    cp /tmp/fonts/*.otf /usr/share/fonts && \
     fc-cache -f -v && \
     rm -rf /tmp/fonts
 
