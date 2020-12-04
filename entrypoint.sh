@@ -11,7 +11,7 @@ TEXINPUTS="${TEXINPUTS:-}"
 
 if [ "$#" -ne 1 ]; then
   echo "No markdown file specified"
-  echo "Usage: $0 <markdown-file.md>"
+  echo "Usage: $0 <markdown_file.md>"
   exit 1
 fi
 if [ ! -f "$1" ]; then
@@ -27,11 +27,11 @@ BASE_FILE="${1%.*}"
 DIFF_FILE=
 if [ ! -z "${INPUT_DIFF_FILE}" ]; then
   if [ ! -f "${INPUT_DIFF_FILE}" ]; then
-    echo "Missing diff-file: ${1} cannot be found."
+    echo "Missing diff_file: ${1} cannot be found."
     exit 2
   fi
   if [ "${INPUT_DIFF_FILE##*.}" != "md" ]; then
-    echo "Invalid diff-file specified: ${INPUT_DIFF_FILE} is not a Markdown file."
+    echo "Invalid diff_file specified: ${INPUT_DIFF_FILE} is not a Markdown file."
     exit 2
   fi
   DIFF_FILE="${INPUT_DIFF_FILE}"
@@ -56,7 +56,7 @@ if [ "$INPUT_PDF" = "true" ]; then
   pandoc "${PANDOC_ARGS[@]}" -t latex --template=/cabforum/templates/guideline.latex -o "${BASE_FILE}.tex" "${1}"
   TEXINPUTS="${TEXINPUTS}:/cabforum/" pandoc "${PANDOC_PDF_ARGS[@]}"
   set +x
-  echo "::set-output name=pdf-file::${BASE_FILE}.pdf"
+  echo "::set-output name=pdf_file::${BASE_FILE}.pdf"
   echo "::endgroup::"
 
   if [ ! -z "${DIFF_FILE}" ]; then
@@ -73,7 +73,7 @@ if [ "$INPUT_PDF" = "true" ]; then
     TEXINPUTS="${TEXINPUTS}:/cabforum/" xelatex -interaction=nonstopmode --output-directory="${TMP_DIR}" "${OUT_DIFF_TEX}-redline.tex"
     set +x
     cp "${OUT_DIFF_TEX}-redline.pdf" "${BASE_FILE}-redline.pdf"
-    echo "::set-output name=pdf-redline-file::${BASE_FILE}-redline.pdf"
+    echo "::set-output name=pdf_redline_file::${BASE_FILE}-redline.pdf"
     echo "::endgroup::"
   fi
 
@@ -89,7 +89,7 @@ if [ "$INPUT_DOCX" = "true" ]; then
   set -x
   pandoc "${PANDOC_DOCX_ARGS[@]}"
   set +x
-  echo "::set-output name=docx-file::${BASE_FILE}.docx"
+  echo "::set-output name=docx_file::${BASE_FILE}.docx"
   echo "::endgroup::"
 fi
 
