@@ -27,7 +27,7 @@ BASE_FILE="${1%.*}"
 DIFF_FILE=
 if [ ! -z "${INPUT_DIFF_FILE}" ]; then
   if [ ! -f "${INPUT_DIFF_FILE}" ]; then
-    echo "Missing diff_file: ${1} cannot be found."
+    echo "Missing diff_file: ${INPUT_DIFF_FILE} cannot be found."
     exit 2
   fi
   if [ "${INPUT_DIFF_FILE##*.}" != "md" ]; then
