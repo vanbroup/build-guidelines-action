@@ -26,15 +26,11 @@ BASE_FILE="${1%.*}"
 
 DIFF_FILE=
 if [ ! -z "${INPUT_DIFF_FILE}" ]; then
-  if [ ! -f "${INPUT_DIFF_FILE}" ]; then
-    echo "Missing diff_file: ${INPUT_DIFF_FILE} cannot be found."
-    exit 2
+  if [ -f "${INPUT_DIFF_FILE}" ] && [ "${INPUT_DIFF_FILE##*.}" == "md" ]; then
+    DIFF_FILE="${INPUT_DIFF_FILE}"
+  else
+    echo "Skipping redline; unable to find ${INPUT_DIFF_FILE}"
   fi
-  if [ "${INPUT_DIFF_FILE##*.}" != "md" ]; then
-    echo "Invalid diff_file specified: ${INPUT_DIFF_FILE} is not a Markdown file."
-    exit 2
-  fi
-  DIFF_FILE="${INPUT_DIFF_FILE}"
 fi
 
 PANDOC_ARGS=( -f markdown --table-of-contents -s )
