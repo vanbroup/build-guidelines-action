@@ -30,7 +30,7 @@ outputs:
   docx_file:
     description: 'The generated DOCX file (if docx was true), relative to GITHUB_WORKSPACE'
   pdf_redline_file:
-    description: 'The generated PDF redline file (if pdf was true and diff-file was supplied), relative to GITHUB_WORKSPACE'
+    description: 'The generated PDF redline file (if pdf was true and diff_file was supplied), relative to GITHUB_WORKSPACE'
 runs:
   using: 'docker'
   image: 'Dockerfile'
