@@ -6,6 +6,7 @@ INPUT_DRAFT="${INPUT_DRAFT:-false}"
 INPUT_PDF="${INPUT_PDF:-true}"
 INPUT_DOCX="${INPUT_DOCX:-true}"
 INPUT_LINT="${INPUT_LINT:-false}"
+INPUT_DIFF_FILE="${INPUT_DIFF_FILE:-}"
 TEXINPUTS="${TEXINPUTS:-}"
 
 if [ "$#" -ne 1 ]; then
@@ -22,6 +23,19 @@ if [ "${1##*.}" != "md" ] ; then
   exit 1
 fi
 BASE_FILE="${1%.*}"
+
+DIFF_FILE=
+if [ ! -z "${INPUT_DIFF_FILE}" ]; then
+  if [ ! -f "${INPUT_DIFF_FILE}" ]; then
+    echo "Missing diff-file: ${1} cannot be found."
+    exit 2
+  fi
+  if [ "${INPUT_DIFF_FILE##*.}" != "md" ]; then
+    echo "Invalid diff-file specified: ${INPUT_DIFF_FILE} is not a Markdown file."
+    exit 2
+  fi
+  DIFF_FILE="${INPUT_DIFF_FILE}"
+fi
 
 PANDOC_ARGS=( -f markdown --table-of-contents -s )
 
@@ -42,7 +56,27 @@ if [ "$INPUT_PDF" = "true" ]; then
   pandoc "${PANDOC_ARGS[@]}" -t latex --template=/cabforum/templates/guideline.latex -o "${BASE_FILE}.tex" "${1}"
   TEXINPUTS="${TEXINPUTS}:/cabforum/" pandoc "${PANDOC_PDF_ARGS[@]}"
   set +x
+  echo "::set-output name=pdf-file::${BASE_FILE}.pdf"
   echo "::endgroup::"
+
+  if [ ! -z "${DIFF_FILE}" ]; then
+    echo "::group::Generating diff"
+    TMP_DIR=$(mktemp -d)
+    OUT_DIFF_TEX=$(basename "${DIFF_FILE}")
+    OUT_DIFF_TEX="${TMP_DIR}/${OUT_DIFF_TEX%.*}"
+    set -x
+    pandoc "${PANDOC_ARGS[@]}" -t latex --template=/cabforum/templates/guideline.latex -o "${OUT_DIFF_TEX}.tex" "${DIFF_FILE}"
+    latexdiff --packages=hyperref "${OUT_DIFF_TEX}.tex" "${BASE_FILE}.tex" > "${OUT_DIFF_TEX}-redline.tex"
+    # Run twice, to enable the Table of Contents to be generated on the first
+    # run, then output on the second run.
+    TEXINPUTS="${TEXINPUTS}:/cabforum/" xelatex -interaction=nonstopmode --output-directory="${TMP_DIR}" "${OUT_DIFF_TEX}-redline.tex"
+    TEXINPUTS="${TEXINPUTS}:/cabforum/" xelatex -interaction=nonstopmode --output-directory="${TMP_DIR}" "${OUT_DIFF_TEX}-redline.tex"
+    set +x
+    cp "${OUT_DIFF_TEX}-redline.pdf" "${BASE_FILE}-redline.pdf"
+    echo "::set-output name=pdf-redline-file::${BASE_FILE}-redline.pdf"
+    echo "::endgroup::"
+  fi
+
 fi
 
 if [ "$INPUT_DOCX" = "true" ]; then
@@ -55,6 +89,7 @@ if [ "$INPUT_DOCX" = "true" ]; then
   set -x
   pandoc "${PANDOC_DOCX_ARGS[@]}"
   set +x
+  echo "::set-output name=docx-file::${BASE_FILE}.docx"
   echo "::endgroup::"
 fi
 

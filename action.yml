@@ -4,6 +4,10 @@ inputs:
   markdown-file:
     description: 'Name of the file to convert'
     required: true
+  diff-file:
+    description: 'Previous version to diff against (EXPERIMENTAL)'
+    required: false
+    default: ''
   pdf:
     description: 'Generate a PDF file (true/false)'
     required: false
@@ -20,6 +24,13 @@ inputs:
     description: 'Include a draft watermark (PDF-only for now) (true/false)'
     required: false
     default: 'false'
+outputs:
+  pdf-file:
+    description: 'The generated PDF file (if pdf was true), relative to GITHUB_WORKSPACE'
+  docx-file:
+    description: 'The generated DOCX file (if docx was true), relative to GITHUB_WORKSPACE'
+  pdf-redline-file:
+    description: 'The generated PDF redline file (if pdf was true and diff-file was supplied), relative to GITHUB_WORKSPACE'
 runs:
   using: 'docker'
   image: 'Dockerfile'
