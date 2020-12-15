@@ -1,12 +1,15 @@
-FROM pandoc/latex:2.9.2.1
+FROM pandoc/latex:2.11.2
 
 # Install the necessary LaTeX packages
 RUN tlmgr install \
   crimsonpro \
+  # Work around https://bugs.archlinux.org/task/67856 - needed by xecjk
+  ctex \
   draftwatermark \
   enumitem \
   everypage \
   fancyhdr \
+  latexdiff \
   parskip \
   sourcecodepro \
   sourcesanspro \

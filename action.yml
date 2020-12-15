@@ -1,9 +1,13 @@
 name: 'Build CA/Browser Forum Guideline'
 description: 'Convert a Pandoc-flavored Markdown file to PDF and DOCX using the CA/B Forum Guideline template'
 inputs:
-  markdown-file:
+  markdown_file:
     description: 'Name of the file to convert'
     required: true
+  diff_file:
+    description: 'Previous version to diff against (EXPERIMENTAL)'
+    required: false
+    default: ''
   pdf:
     description: 'Generate a PDF file (true/false)'
     required: false
@@ -20,8 +24,15 @@ inputs:
     description: 'Include a draft watermark (PDF-only for now) (true/false)'
     required: false
     default: 'false'
+outputs:
+  pdf_file:
+    description: 'The generated PDF file (if pdf was true), relative to GITHUB_WORKSPACE'
+  docx_file:
+    description: 'The generated DOCX file (if docx was true), relative to GITHUB_WORKSPACE'
+  pdf_redline_file:
+    description: 'The generated PDF redline file (if pdf was true and diff_file was supplied), relative to GITHUB_WORKSPACE'
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.markdown-file }}
+    - ${{ inputs.markdown_file }}
