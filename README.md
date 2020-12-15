@@ -26,9 +26,9 @@ For example, on a `push` event, this would be the
 SHA-1's file (e.g. using [`actions/checkout`](https://github.com/actions/checkout)
 with a `ref` of `${{ github.event.push.before }}` and a custom `path`).
 
-This is fairly experimental and prone to break, so this should be treated
-as experimental. Redlines are only generated if `pdf` is `"true"`. Further,
-if this path does not exist, a redline is simply not generated.
+This is fairly experimental and prone to break. Redlines are only generated
+if `pdf` is `"true"`. Further, if this path does not exist, a redline is
+simply not generated.
 
 ### `pdf`
 

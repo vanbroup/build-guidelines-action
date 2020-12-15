@@ -25,11 +25,11 @@ fi
 BASE_FILE="${1%.*}"
 
 DIFF_FILE=
-if [ ! -z "${INPUT_DIFF_FILE}" ]; then
-  if [ -f "${INPUT_DIFF_FILE}" ] && [ "${INPUT_DIFF_FILE##*.}" == "md" ]; then
+if [ -n "${INPUT_DIFF_FILE}" ]; then
+  if [ -f "${INPUT_DIFF_FILE}" ] && [[ "${INPUT_DIFF_FILE}" =~ .*\.md ]]; then
     DIFF_FILE="${INPUT_DIFF_FILE}"
   else
-    echo "Skipping redline; unable to find ${INPUT_DIFF_FILE}"
+    echo "Skipping redline; unable to find ${INPUT_DIFF_FILE} or the filename doesn't end in .md"
   fi
 fi
 
@@ -55,21 +55,23 @@ if [ "$INPUT_PDF" = "true" ]; then
   echo "::set-output name=pdf_file::${BASE_FILE}.pdf"
   echo "::endgroup::"
 
-  if [ ! -z "${DIFF_FILE}" ]; then
+  if [ -n "${DIFF_FILE}" ]; then
     echo "::group::Generating diff"
     TMP_DIR=$(mktemp -d)
-    OUT_DIFF_TEX=$(basename "${DIFF_FILE}")
-    OUT_DIFF_TEX="${TMP_DIR}/${OUT_DIFF_TEX%.*}"
+    OUT_DIFF_TEX=$(basename "${DIFF_FILE}" ".md")
+    OUT_DIFF_TEX="${TMP_DIR}/${OUT_DIFF_TEX}"
     set -x
     pandoc "${PANDOC_ARGS[@]}" -t latex --template=/cabforum/templates/guideline.latex -o "${OUT_DIFF_TEX}.tex" "${DIFF_FILE}"
     latexdiff --packages=hyperref "${OUT_DIFF_TEX}.tex" "${BASE_FILE}.tex" > "${OUT_DIFF_TEX}-redline.tex"
-    # Run twice, to enable the Table of Contents to be generated on the first
-    # run, then output on the second run.
-    TEXINPUTS="${TEXINPUTS}:/cabforum/" xelatex -interaction=nonstopmode --output-directory="${TMP_DIR}" "${OUT_DIFF_TEX}-redline.tex"
-    TEXINPUTS="${TEXINPUTS}:/cabforum/" xelatex -interaction=nonstopmode --output-directory="${TMP_DIR}" "${OUT_DIFF_TEX}-redline.tex"
+    # Three runs in total are required (and match what Pandoc does under the hood)
+    TEXINPUTS="${TEXINPUTS}:/cabforum/" xelatex -interaction=nonstopmode --output-directory="${TMP_DIR}" "${OUT_DIFF_TEX}-redline.tex" || true
+    TEXINPUTS="${TEXINPUTS}:/cabforum/" xelatex -interaction=nonstopmode --output-directory="${TMP_DIR}" "${OUT_DIFF_TEX}-redline.tex" || true
+    TEXINPUTS="${TEXINPUTS}:/cabforum/" xelatex -interaction=nonstopmode --output-directory="${TMP_DIR}" "${OUT_DIFF_TEX}-redline.tex" || true
     set +x
-    cp "${OUT_DIFF_TEX}-redline.pdf" "${BASE_FILE}-redline.pdf"
-    echo "::set-output name=pdf_redline_file::${BASE_FILE}-redline.pdf"
+    if [ -f "${OUT_DIFF_TEX}-redline.pdf" ]; then
+      cp "${OUT_DIFF_TEX}-redline.pdf" "${BASE_FILE}-redline.pdf"
+      echo "::set-output name=pdf_redline_file::${BASE_FILE}-redline.pdf"
+    fi
     echo "::endgroup::"
   fi
 
