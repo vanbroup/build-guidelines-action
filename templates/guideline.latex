@@ -1,17 +1,16 @@
 \PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
 
 \documentclass[
+  a4paper,
   12pt,
 ]{report}
 
 % Set up margins
-\usepackage[margin=1in]{geometry}
+\usepackage[a4paper, includehead, includefoot, margin=0.5in]{geometry}
 
 % Configure fonts
 \usepackage{unicode-math}
 \usepackage{xeCJK}
-\defaultfontfeatures{Scale=MatchLowercase}
-\defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \usepackage[default]{sourceserifpro}
 \usepackage[ttdefault]{sourcecodepro}
 \usepackage{sourcesanspro}
@@ -53,6 +52,14 @@
 \cftsetindents{subsection}{2em}{1em}
 \cftsetindents{subsubsection}{3em}{1em}
 \cftsetindents{paragraph}{4em}{1em}
+
+% Left Align Tables
+\usepackage[margins=raggedright]{floatrow}
+
+% Make tables smaller than the rest of the document
+\let\oldlongtable\longtable
+\let\oldendlongtable\endlongtable
+\renewenvironment{longtable}{\footnotesize\oldlongtable}{\oldendlongtable}
 
 % Disable per-paragraph indenting
 \usepackage{parskip}[indent=0pt]
