@@ -135,7 +135,8 @@ $if(draft)$
 $endif$
 
 % Style layers as indicated with a fenced div
-% 800-899 = 
+% 800-899 = Reserved for Auditors and Assessors
+% 900-999 = Resevred for CAs
 \usepackage{mdframed}
 \newenvironment{layer-800}%
   {\begin{mdframed}[
