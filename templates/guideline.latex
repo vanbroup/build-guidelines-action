@@ -141,7 +141,7 @@
 % over from the base template.
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}
-  \setlength{\parskip}{0pt}LightGreyGreay 
+  \setlength{\parskip}{0pt} 
 }
 
 % Add a watermark for drafts
