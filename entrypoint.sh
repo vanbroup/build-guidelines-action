@@ -85,7 +85,12 @@ if [ -n "${DIFF_VERSION}" ]; then
   OUTPUT_DIFF_FILENAME="${BASE_FILE}-${DIFF_VERSION}-to-${FILE_VERSION}-redline"
 fi
 
-PANDOC_ARGS=( -f markdown+gfm_auto_identifiers --table-of-contents -s --no-highlight --lua-filter=/cabforum/filters/pandoc-list-table.lua --filter=/usr/bin/pantable )
+PANDOC_ARGS=( -f markdown+gfm_auto_identifiers --table-of-contents -s --no-highlight )
+
+# Add filters
+PANDOC_PDF_ARGS+=( --lua-filter=/cabforum/filters/fenced-div.lua )
+PANDOC_PDF_ARGS+=( --lua-filter=/cabforum/filters/pandoc-list-table.lua )
+PANDOC_PDF_ARGS+=( --filter=/usr/bin/pantable )
 
 if [ "$INPUT_DRAFT" = "true" ]; then
   echo "Draft detected. Adding draft watermark and file suffix"

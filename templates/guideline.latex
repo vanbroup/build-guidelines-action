@@ -134,6 +134,44 @@ $if(draft)$
 \usepackage{draftwatermark}
 $endif$
 
+% Style layers as indicated with a fenced div
+% 800-899 = 
+\usepackage{mdframed}
+\newenvironment{layer-800}%
+  {\begin{mdframed}[
+    linecolor=Grey,
+		backgroundcolor=Lightgray,
+		skipabove=0mm,
+		skipbelow=0mm,
+		innertopmargin=1mm,
+		innerbottommargin=1mm,
+		innerleftmargin=2mm,
+		innerrightmargin=0mm,
+		leftmargin=20mm,
+		rightline=false,
+		topline=false,
+		bottomline=false,
+		linewidth=1mm
+  ]}%
+  {\end{mdframed}}
+\newenvironment{layer-900}%
+  {\begin{mdframed}[
+    linecolor=Blue,
+		backgroundcolor=Lightgray,
+		skipabove=0mm,
+		skipbelow=0mm,
+		innertopmargin=1mm,
+		innerbottommargin=1mm,
+		innerleftmargin=2mm,
+		innerrightmargin=0mm,
+		leftmargin=20mm,
+		rightline=false,
+		topline=false,
+		bottomline=false,
+		linewidth=1mm
+  ]}%
+  {\end{mdframed}}
+
 % Document metadata
 \title{$title$}
 \author{$for(author)$$author$$sep$ \and $endfor$}

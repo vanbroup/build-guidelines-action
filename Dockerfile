@@ -15,6 +15,7 @@ RUN tlmgr install \
   fancyhdr \
   floatrow \
   latexdiff \
+  mdframed \
   multirow \
   parskip \
   sourcecodepro \
