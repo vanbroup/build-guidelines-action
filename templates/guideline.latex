@@ -28,6 +28,21 @@
 \definecolor{TitleColor}{HTML}{335B8A}
 \definecolor{HeadingColor}{HTML}{4F81BD}
 \definecolor{HyperlinkColor}{HTML}{1155CC}
+\definecolor{LayerBackgroundColor}{HTML}{333333}
+
+% CA/Browser Forum blue colors
+\definecolor{Blue}{HTML}{37b8eb}
+\definecolor{DarkBlue}{HTML}{105a75}
+
+\definecolor{LightGrey}{HTML}{f8f9fa}
+\definecolor{Grey}{HTML}{dee2e6}
+\definecolor{DarkGrey}{HTML}{343a40}
+\definecolor{Yellow}{HTML}{ffba08}
+\definecolor{Yellow}{HTML}{ffba08}
+\definecolor{Organge}{HTML}{f48c06}
+\definecolor{Red}{HTML}{d00000}
+\definecolor{Green}{HTML}{058c42}
+
 
 % Configure links and PDF meta-data
 \usepackage[xetex, bookmarks, colorlinks, breaklinks]{hyperref}
@@ -126,7 +141,7 @@
 % over from the base template.
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}
-  \setlength{\parskip}{0pt}
+  \setlength{\parskip}{0pt}LightGreyGreay 
 }
 
 % Add a watermark for drafts
@@ -140,8 +155,8 @@ $endif$
 \usepackage{mdframed}
 \newenvironment{layer-800}%
   {\begin{mdframed}[
-    linecolor=Gray,
-		backgroundcolor=Lightgray,
+    linecolor=Yellow,
+		backgroundcolor=LightGrey,
 		skipabove=0mm,
 		skipbelow=0mm,
 		innertopmargin=1mm,
@@ -157,8 +172,8 @@ $endif$
   {\end{mdframed}}
 \newenvironment{layer-900}%
   {\begin{mdframed}[
-    linecolor=Blue,
-		backgroundcolor=Lightgray,
+    linecolor=Green,
+		backgroundcolor=LightGrey,
 		skipabove=0mm,
 		skipbelow=0mm,
 		innertopmargin=1mm,
