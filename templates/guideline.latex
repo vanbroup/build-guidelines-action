@@ -140,7 +140,7 @@ $endif$
 \usepackage{mdframed}
 \newenvironment{layer-800}%
   {\begin{mdframed}[
-    linecolor=Grey,
+    linecolor=Gray,
 		backgroundcolor=Lightgray,
 		skipabove=0mm,
 		skipbelow=0mm,
