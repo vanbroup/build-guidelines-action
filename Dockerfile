@@ -23,7 +23,8 @@ RUN tlmgr install \
   sourceserifpro \
   titlesec \
   tocloft \
-  xecjk
+  xecjk \
+  zref
 
 # Install bash, coreutils and git
 RUN apk add --no-cache bash coreutils git
