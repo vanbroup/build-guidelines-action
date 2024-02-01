@@ -17,6 +17,7 @@ RUN tlmgr install \
   latexdiff \
   mdframed \
   multirow \
+  needspace \
   parskip \
   sourcecodepro \
   sourcesanspro \
