@@ -1,4 +1,4 @@
-FROM pandoc/latex:2.19.2.0
+FROM pandoc/latex:3.1.1.0
 
 # Update tlmgr if necessary
 RUN tlmgr option repository ftp://tug.org/historic/systems/texlive/2022/tlnet-final
