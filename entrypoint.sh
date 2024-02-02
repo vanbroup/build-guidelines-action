@@ -11,6 +11,7 @@ INPUT_DIFF_FILE="${INPUT_DIFF_FILE:-}"
 TEXINPUTS="${TEXINPUTS:-}"
 
 git config --global --add safe.directory /data
+git config --global --add safe.directory /github/workspace
 
 # Rather than relying on 'set -x', which will output the command to STDERR,
 # use a function that logs to STDOUT. This ensures a deterministic sequence
