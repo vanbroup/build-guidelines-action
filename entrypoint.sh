@@ -10,6 +10,8 @@ INPUT_LINT="${INPUT_LINT:-false}"
 INPUT_DIFF_FILE="${INPUT_DIFF_FILE:-}"
 TEXINPUTS="${TEXINPUTS:-}"
 
+# Consider all Git repositories as safe
+# https://github.blog/2022-04-18-highlights-from-git-2-36/
 git config --global --add safe.directory "*"
 
 # Rather than relying on 'set -x', which will output the command to STDERR,
