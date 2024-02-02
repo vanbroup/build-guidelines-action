@@ -139,7 +139,7 @@ if [ "$INPUT_DOCX" = "true" ]; then
   echo "::group::Building DOCX"
   PANDOC_DOCX_ARGS=( "${PANDOC_ARGS[@]}" )
   PANDOC_DOCX_ARGS+=( -t docx )
-  PANDOC_DOCX_ARGS+=( -f docx+styles )
+  #PANDOC_DOCX_ARGS+=( -f docx+styles )
   PANDOC_DOCX_ARGS+=( --reference-doc=/cabforum/templates/guideline.docx )
   PANDOC_DOCX_ARGS+=( -o "${OUTPUT_FILENAME}.docx" "${INPUT_MARKDOWN_FILE}" )
 
