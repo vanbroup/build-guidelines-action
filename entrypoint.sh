@@ -10,6 +10,8 @@ INPUT_LINT="${INPUT_LINT:-false}"
 INPUT_DIFF_FILE="${INPUT_DIFF_FILE:-}"
 TEXINPUTS="${TEXINPUTS:-}"
 
+git config --global --add safe.directory /data
+
 # Rather than relying on 'set -x', which will output the command to STDERR,
 # use a function that logs to STDOUT. This ensures a deterministic sequence
 # of output (e.g. during tests), by writing everything to a single output.
