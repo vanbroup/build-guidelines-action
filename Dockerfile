@@ -1,7 +1,7 @@
-FROM pandoc/latex:2.19.2.0
+FROM pandoc/latex:2.19.2.0 // 3.1.11.1
 
 # Update tlmgr if necessary
-RUN tlmgr option repository ftp://tug.org/historic/systems/texlive/2020/tlnet-final
+RUN tlmgr option repository ftp://tug.org/historic/systems/texlive/2022/tlnet-final
 RUN tlmgr update --self
 
 # Install the necessary LaTeX packages
