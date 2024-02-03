@@ -1,6 +1,10 @@
 function Div(el)
     for _, class in ipairs(el.classes) do
         if string.sub(class, 1, 6) == "layer-" then
+            -- for docx
+            el.attributes['custom-style'] = class
+
+            -- for pdf
             -- insert element in front
             table.insert(
                 el.content, 1,
