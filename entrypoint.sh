@@ -92,7 +92,7 @@ fi
 PANDOC_ARGS=( -f markdown+gfm_auto_identifiers --table-of-contents -s --no-highlight )
 
 # Add filters
-#PANDOC_ARGS+=( --lua-filter=/cabforum/filters/fenced-div.lua )
+PANDOC_ARGS+=( --lua-filter=/cabforum/filters/fenced-div.lua )
 PANDOC_ARGS+=( --lua-filter=/cabforum/filters/pandoc-list-table.lua )
 PANDOC_ARGS+=( --filter=/usr/bin/pantable )
 
