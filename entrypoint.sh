@@ -59,14 +59,14 @@ fi
 # Extract templates tar.gz file and add to templates directory
 if [ -n "${INPUT_TEMPLATE_FILE}" ]; then
   echo "::group::Extracting templates"
-  tar -xvzf "${INPUT_TEMPLATE_FILE}" -C /cabforum/templates
+  tar -xvzf "${INPUT_TEMPLATE_FILE}" -C /cabforum/templates/
   echo "::endgroup::"
 fi
 
 # Extract filters tar.gz file and add to filters directory
-if [ -n "${INPUT_TEMPLATE_FILE}" ]; then
+if [ -n "${INPUT_FILTERS_FILE}" ]; then
   echo "::group::Extracting templates"
-  tar -xvzf "${INPUT_TEMPLATE_FILE}" -C /cabforum/templates
+  tar -xvzf "${INPUT_FILTERS_FILE}" -C /cabforum/filters/
   echo "::endgroup::"
 fi
 
