@@ -4,6 +4,7 @@ set -euo pipefail
 
 INPUT_MARKDOWN_FILE="${INPUT_MARKDOWN_FILE:-}"
 INPUT_TEMPLATE_FILE="${INPUT_TEMPLATE_FILE:-}"
+INPUT_TEMPLATE="${INPUT_TEMPLATE:-guideline}"
 INPUT_FILTERS_FILE="${INPUT_FILTERS_FILE:-}"
 INPUT_DRAFT="${INPUT_DRAFT:-false}"
 INPUT_PDF="${INPUT_PDF:-true}"
@@ -126,10 +127,10 @@ if [ "$INPUT_PDF" = "true" ]; then
   echo "::group::Building PDF"
   PANDOC_PDF_ARGS=( "${PANDOC_ARGS[@]}" )
   PANDOC_PDF_ARGS+=( -t latex --pdf-engine=xelatex )
-  PANDOC_PDF_ARGS+=( --template=/cabforum/templates/guideline.latex )
+  PANDOC_PDF_ARGS+=( --template=/cabforum/templates/${INPUT_TEMPLATE}.latex )
   PANDOC_PDF_ARGS+=( -o "${OUTPUT_FILENAME}.pdf" "${INPUT_MARKDOWN_FILE}" )
 
-  LogAndRun pandoc "${PANDOC_ARGS[@]}" -t latex --template=/cabforum/templates/guideline.latex -o "${BASE_FILE}.tex" "${INPUT_MARKDOWN_FILE}"
+  LogAndRun pandoc "${PANDOC_ARGS[@]}" -t latex --template=/cabforum/templates/${INPUT_TEMPLATE}.latex -o "${BASE_FILE}.tex" "${INPUT_MARKDOWN_FILE}"
   TEXINPUTS="${TEXINPUTS}:/cabforum/" LogAndRun pandoc "${PANDOC_PDF_ARGS[@]}"
   echo "pdf_file=${OUTPUT_FILENAME}.pdf" >> $GITHUB_OUTPUT
   echo "::endgroup::"
@@ -139,7 +140,7 @@ if [ "$INPUT_PDF" = "true" ]; then
     TMP_DIR=$(mktemp -d)
     OUT_DIFF_TEX=$(basename "${DIFF_FILE}" ".md")
     OUT_DIFF_TEX="${TMP_DIR}/${OUT_DIFF_TEX}"
-    LogAndRun pandoc "${PANDOC_ARGS[@]}" -t latex --template=/cabforum/templates/guideline.latex -o "${OUT_DIFF_TEX}.tex" "${DIFF_FILE}"
+    LogAndRun pandoc "${PANDOC_ARGS[@]}" -t latex --template=/cabforum/templates/${INPUT_TEMPLATE}.latex -o "${OUT_DIFF_TEX}.tex" "${DIFF_FILE}"
     LogAndRun latexdiff --packages=hyperref "${OUT_DIFF_TEX}.tex" "${BASE_FILE}.tex" > "${OUT_DIFF_TEX}-redline.tex"
     # Three runs in total are required (and match what Pandoc does under the hood)
     TEXINPUTS="${TEXINPUTS}:/cabforum/" LogAndRun xelatex -interaction=nonstopmode --output-directory="${TMP_DIR}" "${OUT_DIFF_TEX}-redline.tex" || true
@@ -158,7 +159,7 @@ if [ "$INPUT_DOCX" = "true" ]; then
   echo "::group::Building DOCX"
   PANDOC_DOCX_ARGS=( "${PANDOC_ARGS[@]}" )
   PANDOC_DOCX_ARGS+=( -t docx )
-  PANDOC_DOCX_ARGS+=( --reference-doc=/cabforum/templates/guideline.docx )
+  PANDOC_DOCX_ARGS+=( --reference-doc=/cabforum/templates/${INPUT_TEMPLATE}.docx )
   PANDOC_DOCX_ARGS+=( -o "${OUTPUT_FILENAME}.docx" "${INPUT_MARKDOWN_FILE}" )
 
   LogAndRun pandoc "${PANDOC_DOCX_ARGS[@]}"
