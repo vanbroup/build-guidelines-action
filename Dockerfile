@@ -14,6 +14,7 @@ RUN tlmgr install \
   everypage \
   fancyhdr \
   floatrow \
+  koma-script \
   latexdiff \
   mdframed \
   multirow \
