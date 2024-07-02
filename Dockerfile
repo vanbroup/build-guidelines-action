@@ -22,7 +22,7 @@ RUN tlmgr install \
   sourcecodepro \
   sourcesanspro \
   sourceserifpro \
-  svg-extract \
+  svg \
   titlesec \
   tocloft \
   xecjk \
