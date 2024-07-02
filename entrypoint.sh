@@ -110,6 +110,10 @@ PANDOC_ARGS=( -f markdown+gfm_auto_identifiers --table-of-contents -s --no-highl
 
 # Add all filters in the filters directory
 for filter_file in /cabforum/filters/*.lua; do
+  # skip broken-links.lua, which needs to run last
+  if [ "$(basename "${filter_file}")" = "broken-links.lua" ]; then
+    continue
+  fi
   PANDOC_ARGS+=( --lua-filter="${filter_file}" )
 done
 PANDOC_ARGS+=( --filter=/usr/bin/pantable )
