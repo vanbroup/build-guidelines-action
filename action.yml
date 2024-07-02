@@ -4,6 +4,12 @@ inputs:
   markdown_file:
     description: 'Name of the file to convert'
     required: true
+  template_file:
+    description: 'A tar.gz file with a custom template'
+    required: false
+  filters_file:
+    description: 'A tar.gz file with a custom latex filters in lua'
+    required: false
   diff_file:
     description: 'Previous version to diff against (EXPERIMENTAL)'
     required: false

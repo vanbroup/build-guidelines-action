@@ -3,6 +3,8 @@
 set -euo pipefail
 
 INPUT_MARKDOWN_FILE="${INPUT_MARKDOWN_FILE:-}"
+INPUT_TEMPLATE_FILE="${INPUT_TEMPLATE_FILE:-}"
+INPUT_FILTERS_FILE="${INPUT_FILTERS_FILE:-}"
 INPUT_DRAFT="${INPUT_DRAFT:-false}"
 INPUT_PDF="${INPUT_PDF:-true}"
 INPUT_DOCX="${INPUT_DOCX:-true}"
@@ -53,6 +55,20 @@ if [ -n "${INPUT_DIFF_FILE}" ]; then
   fi
 fi
 
+# Extract templates tar.gz file and add to templates directory
+if [ -n "${INPUT_TEMPLATE_FILE}" ]; then
+  echo "::group::Extracting templates"
+  tar -xvzf "${INPUT_TEMPLATE_FILE}" -C /cabforum/templates
+  echo "::endgroup::"
+fi
+
+# Extract filters tar.gz file and add to filters directory
+if [ -n "${INPUT_TEMPLATE_FILE}" ]; then
+  echo "::group::Extracting templates"
+  tar -xvzf "${INPUT_TEMPLATE_FILE}" -C /cabforum/templates
+  echo "::endgroup::"
+fi
+
 # Extract version
 echo "::group::Extract version"
 FILE_VERSION=
@@ -91,9 +107,10 @@ fi
 
 PANDOC_ARGS=( -f markdown+gfm_auto_identifiers --table-of-contents -s --no-highlight )
 
-# Add filters
-PANDOC_ARGS+=( --lua-filter=/cabforum/filters/fenced-div.lua )
-PANDOC_ARGS+=( --lua-filter=/cabforum/filters/pandoc-list-table.lua )
+# Add all filters in the filters directory
+for filter_file in "/cabforum/filters/*.lua"; do
+  PANDOC_ARGS+=( --lua-filter="${filter_file}" )
+done
 PANDOC_ARGS+=( --filter=/usr/bin/pantable )
 
 if [ "$INPUT_DRAFT" = "true" ]; then
