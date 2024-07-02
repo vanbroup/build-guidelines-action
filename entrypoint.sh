@@ -108,7 +108,7 @@ fi
 PANDOC_ARGS=( -f markdown+gfm_auto_identifiers --table-of-contents -s --no-highlight )
 
 # Add all filters in the filters directory
-for filter_file in "/cabforum/filters/*.lua"; do
+for filter_file in /cabforum/filters/*.lua; do
   PANDOC_ARGS+=( --lua-filter="${filter_file}" )
 done
 PANDOC_ARGS+=( --filter=/usr/bin/pantable )
