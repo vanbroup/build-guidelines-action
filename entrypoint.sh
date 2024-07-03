@@ -116,7 +116,7 @@ for filter_file in /cabforum/filters/*.lua; do
   fi
   PANDOC_ARGS+=( --lua-filter="${filter_file}" )
 done
-PANDOC_ARGS+=( --filter=/usr/bin/pantable )
+PANDOC_ARGS+=( --filter=pantable )
 
 if [ "$INPUT_DRAFT" = "true" ]; then
   echo "Draft detected. Adding draft watermark and file suffix"
