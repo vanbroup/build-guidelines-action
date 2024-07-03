@@ -208,7 +208,7 @@ $endif$
 
     \vspace{2cm}
 
-    \includegraphics[width=0.5\textwidth]{templates/cabforum.png}\\[5pt]
+    \includegraphics[width=0.5\textwidth]{templates/cabforum.pdf}\\[5pt]
     {$date$}
 
     \vfill
