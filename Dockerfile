@@ -13,6 +13,7 @@ RUN tlmgr install \
   everypage \
   fancyhdr \
   floatrow \
+  lastpage \
   latexdiff \
   mdframed \
   multirow \
