@@ -28,7 +28,7 @@ inputs:
     description: 'Name of the template included in the templates folder'
     required: false
     default: 'guideline'
-  template_file:
+  templates_file:
     description: 'A tar.gz file with additional template files'
     required: false
   filters_file:

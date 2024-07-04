@@ -3,8 +3,8 @@
 set -euo pipefail
 
 INPUT_MARKDOWN_FILE="${INPUT_MARKDOWN_FILE:-}"
-INPUT_TEMPLATE_FILE="${INPUT_TEMPLATE_FILE:-}"
 INPUT_TEMPLATE="${INPUT_TEMPLATE:-guideline}"
+INPUT_TEMPLATES_FILE="${INPUT_TEMPLATES_FILE:-}"
 INPUT_FILTERS_FILE="${INPUT_FILTERS_FILE:-}"
 INPUT_DRAFT="${INPUT_DRAFT:-false}"
 INPUT_PDF="${INPUT_PDF:-true}"
@@ -57,9 +57,9 @@ if [ -n "${INPUT_DIFF_FILE}" ]; then
 fi
 
 # Extract templates tar.gz file and add to templates directory
-if [ -n "${INPUT_TEMPLATE_FILE}" ]; then
+if [ -n "${INPUT_TEMPLATES_FILE}" ]; then
   echo "::group::Extracting templates"
-  tar -xvzf "${INPUT_TEMPLATE_FILE}" -C /cabforum/templates/
+  tar -xvzf "${INPUT_TEMPLATES_FILE}" -C /cabforum/templates/
   echo "::endgroup::"
 fi
 
