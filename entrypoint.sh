@@ -90,7 +90,7 @@ if [ -n "${DIFF_FILE}" ]; then
   echo "diff_version=${DIFF_VERSION}" >> $GITHUB_OUTPUT
   echo "diff_commit=${DIFF_COMMIT}" >> $GITHUB_OUTPUT
 
-  CHANGELOG=$(git log --pretty=format:"- %h %s" "${DIFF_COMMIT}..${FILE_COMMIT}" -- "${INPUT_MARKDOWN_FILE}")
+  CHANGELOG=$(git log --pretty=format:"- %h %s" "${DIFF_COMMIT}.." -- "${INPUT_MARKDOWN_FILE}")
   echo "changelog=${CHANGELOG}" >> $GITHUB_OUTPUT
   echo $CHANGELOG
 fi
