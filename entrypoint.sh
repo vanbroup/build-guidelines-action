@@ -91,8 +91,12 @@ if [ -n "${DIFF_FILE}" ]; then
   echo "diff_commit=${DIFF_COMMIT}" >> $GITHUB_OUTPUT
 
   CHANGELOG=$(git log --pretty=format:"- %h %s" "${DIFF_COMMIT}..${FILE_COMMIT}" -- "${INPUT_MARKDOWN_FILE}")
-  echo "changelog=${CHANGELOG}" >> $GITHUB_OUTPUT
-  echo $CHANGELOG
+  # Changelog can have multiple lines, which is causing issues with the GitHub output
+  echo "changelog<<EOF" >> $GITHUB_OUTPUT
+  echo "${CHANGELOG}" >> $GITHUB_OUTPUT
+  echo "EOF" >> $GITHUB_OUTPUT
+  echo "Changelog:"
+  echo "${CHANGELOG}"
 fi
 echo "::endgroup::"
 
