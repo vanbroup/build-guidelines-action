@@ -65,7 +65,7 @@ fi
 
 # Extract filters tar.gz file and add to filters directory
 if [ -n "${INPUT_FILTERS_FILE}" ]; then
-  echo "::group::Extracting templates"
+  echo "::group::Extracting filters"
   tar -xvzf "${INPUT_FILTERS_FILE}" -C /cabforum/filters/
   echo "::endgroup::"
 fi
