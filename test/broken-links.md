@@ -1,6 +1,6 @@
 ---
 title: Broken Link Test
-subtitle: Version X
+subtitle: Version 0.0.0
 author:
   - CA/Browser Forum
 date: 7 January, 2021
