@@ -75,7 +75,7 @@ echo "::group::Extract version"
 FILE_VERSION=
 FILE_COMMIT=
 if [ -n "${INPUT_MARKDOWN_FILE}" ]; then
-  FILE_VERSION=$(head -20 "${INPUT_MARKDOWN_FILE}" | sed -nE 's/(version:|subtitle: Version) *([0-9]+\.[0-9]+\.[0-9]+)/v\2/p')
+  FILE_VERSION=$(head -20 "${INPUT_MARKDOWN_FILE}" | sed -nE 's/(version:|subtitle: Version) *([0-9]+\.[0-9]+\.[0-9]+)/v\2/p' | tr -cd 'v0-9.')
   FILE_COMMIT=$(git log -n 1 --pretty=format:%h -- "${INPUT_MARKDOWN_FILE}")
   echo "File $(basename ${INPUT_MARKDOWN_FILE}) is at version ${FILE_VERSION} and commit ${FILE_COMMIT}"
   echo "file_version=${FILE_VERSION}" >> $GITHUB_OUTPUT
@@ -84,7 +84,7 @@ fi
 DIFF_VERSION=
 DIFF_COMMIT=
 if [ -n "${DIFF_FILE}" ]; then
-  DIFF_VERSION=$(head -20 "${DIFF_FILE}" | sed -nE 's/(version:|subtitle: Version) *([0-9]+\.[0-9]+\.[0-9]+)/v\2/p')
+  DIFF_VERSION=$(head -20 "${DIFF_FILE}" | sed -nE 's/(version:|subtitle: Version) *([0-9]+\.[0-9]+\.[0-9]+)/v\2/p' | tr -cd 'v0-9.')
   DIFF_COMMIT=$(cd "$(dirname "${DIFF_FILE}")"; git log -n 1 --pretty=format:%h -- "$(basename "${DIFF_FILE}")")
   echo "Diff $(basename ${DIFF_VERSION}) is at version ${DIFF_VERSION} and commit ${DIFF_COMMIT}"
   echo "diff_version=${DIFF_VERSION}" >> $GITHUB_OUTPUT
