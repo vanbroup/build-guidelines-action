@@ -3,7 +3,7 @@ on: [push, pull_request]
 jobs:
   build_docker:
     name: Build Docker Image
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     env:
       DOCKER_TAG: build-guidelines-action
     steps:
@@ -23,7 +23,7 @@ jobs:
 
   test_docker:
     name: Test Docker Image
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs:
       - build_docker
     env:
@@ -46,7 +46,7 @@ jobs:
   publish:
     if: ${{ github.event_name != 'pull_request' }}
     name: Publish (Push only)
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs:
       - test_docker
     env:

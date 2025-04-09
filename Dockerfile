@@ -1,7 +1,6 @@
-FROM pandoc/latex:2.11.3.2
+FROM pandoc/latex:3.6.3.0
 
 # Update tlmgr if necessary
-RUN tlmgr option repository ftp://tug.org/historic/systems/texlive/2020/tlnet-final
 RUN tlmgr update --self
 
 # Install the necessary LaTeX packages
@@ -15,14 +14,17 @@ RUN tlmgr install \
   fancyhdr \
   floatrow \
   latexdiff \
+  mdframed \
   multirow \
+  needspace \
   parskip \
   sourcecodepro \
   sourcesanspro \
   sourceserifpro \
   titlesec \
   tocloft \
-  xecjk
+  xecjk \
+  zref
 
 # Install bash, coreutils and git
 RUN apk add --no-cache bash coreutils git
@@ -37,10 +39,16 @@ RUN mkdir -p /tmp/fonts && \
     fc-cache -f -v && \
     rm -rf /tmp/fonts
 
-# Install Python3 and Pantable
+# Install Python3
 RUN apk add --update --no-cache python3 py3-pip py3-numpy
-RUN python3 -m pip install pyyaml==5.3.1
-RUN python3 -m pip install pantable==0.13.4
+
+# Create virtual environment
+RUN python3 -m venv /virtualenv
+ENV PATH=/virtualenv/bin:$PATH
+
+# Install PyYAML and Pantable in the virtual environment
+RUN pip install pyyaml==5.3.1
+RUN pip install pantable==0.13.4
 
 RUN mkdir -p /cabforum
 RUN mkdir -p /cabforum/templates

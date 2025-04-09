@@ -24,6 +24,17 @@ inputs:
     description: 'Include a draft watermark (PDF-only for now) (true/false)'
     required: false
     default: 'false'
+  template:
+    description: 'Name of the template included in the templates folder'
+    required: false
+    default: 'guideline'
+  templates_file:
+    description: 'A tar.gz file with additional template files'
+    required: false
+  filters_file:
+    description: 'A tar.gz file with additional latex filters (in lua)'
+    required: false
+
 outputs:
   pdf_file:
     description: 'The generated PDF file (if pdf was true), relative to GITHUB_WORKSPACE'

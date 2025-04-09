@@ -28,6 +28,21 @@
 \definecolor{TitleColor}{HTML}{335B8A}
 \definecolor{HeadingColor}{HTML}{4F81BD}
 \definecolor{HyperlinkColor}{HTML}{1155CC}
+\definecolor{LayerBackgroundColor}{HTML}{333333}
+
+% CA/Browser Forum blue colors
+\definecolor{Blue}{HTML}{37b8eb}
+\definecolor{DarkBlue}{HTML}{105a75}
+
+\definecolor{LightGrey}{HTML}{f8f9fa}
+\definecolor{Grey}{HTML}{dee2e6}
+\definecolor{DarkGrey}{HTML}{343a40}
+\definecolor{Yellow}{HTML}{ffba08}
+\definecolor{Yellow}{HTML}{ffba08}
+\definecolor{Organge}{HTML}{f48c06}
+\definecolor{Red}{HTML}{d00000}
+\definecolor{Green}{HTML}{058c42}
+
 
 % Configure links and PDF meta-data
 \usepackage[xetex, bookmarks, colorlinks, breaklinks]{hyperref}
@@ -126,13 +141,52 @@
 % over from the base template.
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}
-  \setlength{\parskip}{0pt}
+  \setlength{\parskip}{0pt} 
 }
 
 % Add a watermark for drafts
 $if(draft)$
 \usepackage{draftwatermark}
 $endif$
+
+% Style layers as indicated with a fenced div
+% 800-899 = Reserved for Auditors and Assessors
+% 900-999 = Resevred for CAs
+\usepackage{mdframed}
+\newenvironment{layer-800}%
+  {\begin{mdframed}[
+    linecolor=Yellow,
+		backgroundcolor=LightGrey,
+		skipabove=5mm,
+		skipbelow=5mm,
+		innertopmargin=5mm,
+		innerbottommargin=5mm,
+		innerleftmargin=5mm,
+		innerrightmargin=5mm,
+		leftmargin=5mm,
+		rightline=false,
+		topline=false,
+		bottomline=false,
+		linewidth=2mm
+  ]}%
+  {\end{mdframed}}
+\newenvironment{layer-900}%
+  {\begin{mdframed}[
+    linecolor=Green,
+		backgroundcolor=LightGrey,
+		skipabove=5mm,
+		skipbelow=5mm,
+		innertopmargin=5mm,
+		innerbottommargin=5mm,
+		innerleftmargin=5mm,
+		innerrightmargin=5mm,
+		leftmargin=5mm,
+		rightline=false,
+		topline=false,
+		bottomline=false,
+		linewidth=2mm
+  ]}%
+  {\end{mdframed}}
 
 % Document metadata
 \title{$title$}
@@ -154,7 +208,7 @@ $endif$
 
     \vspace{2cm}
 
-    \includegraphics[width=0.5\textwidth]{templates/cabforum.png}\\[5pt]
+    \includegraphics[width=0.5\textwidth]{templates/cabforum.pdf}\\[5pt]
     {$date$}
 
     \vfill
