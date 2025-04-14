@@ -90,7 +90,22 @@ if [ -n "${DIFF_FILE}" ]; then
   echo "diff_version=${DIFF_VERSION}" >> $GITHUB_OUTPUT
   echo "diff_commit=${DIFF_COMMIT}" >> $GITHUB_OUTPUT
 
-  CHANGELOG=$(git log --pretty=format:"- %h %s" "${DIFF_COMMIT}..${FILE_COMMIT}" -- "${INPUT_MARKDOWN_FILE}")
+  CHANGELOG=
+  
+  # Check if the commits exist and are in the right order
+  if git merge-base --is-ancestor "${DIFF_COMMIT}" "${FILE_COMMIT}" 2>/dev/null; then
+    CHANGELOG=$(git log --pretty=format:"- %h %s" "${DIFF_COMMIT}..${FILE_COMMIT}" -- "${INPUT_MARKDOWN_FILE}")
+  else
+    # No direct ancestry between commits
+    COMMON_ANCESTOR=$(git merge-base "${DIFF_COMMIT}" "${FILE_COMMIT}" 2>/dev/null || echo "")
+    if [ -n "${COMMON_ANCESTOR}" ]; then
+      echo "Using changes since common ancestor ${COMMON_ANCESTOR} between ${DIFF_COMMIT} and ${FILE_COMMIT}"
+      CHANGELOG=$(git log --pretty=format:"- %h %s" "${COMMON_ANCESTOR}..${FILE_COMMIT}" -- "${INPUT_MARKDOWN_FILE}")
+    else
+      echo "Cannot determine changelog between these versions"
+    fi
+  fi
+
   # Changelog can have multiple lines, which is causing issues with the GitHub output
   echo "changelog<<EOF" >> $GITHUB_OUTPUT
   echo "${CHANGELOG}" >> $GITHUB_OUTPUT
