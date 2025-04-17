@@ -18,11 +18,13 @@ RUN tlmgr install \
   multirow \
   needspace \
   parskip \
+  pdflscape \
   sourcecodepro \
   sourcesanspro \
   sourceserifpro \
   titlesec \
   tocloft \
+  typearea \
   xecjk \
   zref
 
