@@ -13,6 +13,7 @@ RUN tlmgr install \
   everypage \
   fancyhdr \
   floatrow \
+  koma-script \
   latexdiff \
   mdframed \
   multirow \
@@ -24,7 +25,6 @@ RUN tlmgr install \
   sourceserifpro \
   titlesec \
   tocloft \
-  typearea \
   xecjk \
   zref
 
